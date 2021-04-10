@@ -69,4 +69,3 @@ const checkButton = () => {
 };
 
 checkButton();
-setInterval(checkButton, 5000);

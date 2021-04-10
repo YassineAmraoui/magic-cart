@@ -1,5 +1,28 @@
 const extName = chrome.runtime.getManifest().name;
 
+// const noStock = `
+// <div style="
+// display: flex;
+// flex-direction: column;
+// text-align: center;
+// padding: 10px;
+// color: #000;
+// background-color: palevioletred;
+// ">
+//     <div style="font-weight: bold;">Magic Cart</div>
+//     <div>Le produit est réellement indisponible</div>
+// </div>
+// `
+
+const success = `
+<div style="
+    text-align: center;
+    background-color: lightgreen;
+">Bouton affichés par <span style="font-weight: bold;">Magic Cart</span>
+</div>
+`;
+
+
 const checkButton = () => {
     (async() => {
         const productPageStock = document.querySelector("#product-page-stock");
@@ -13,7 +36,7 @@ const checkButton = () => {
                 },
                 "method": "GET",
                 "credentials": "omit"
-            });
+            }).then(e => e.json());
 
             if (status === "OK") {
                 document.querySelector("#product-page-stock").remove();
@@ -21,14 +44,12 @@ const checkButton = () => {
                 const classNames = productPagePrice.className.split("").filter(Boolean).filter( c => c !== "hide");
                 productPagePrice.className = classNames.join(" ");
 
-                const div = document.createElement("div");
-                div.innerText = `FIXED by ${extName}`;
-                div.style = "text-align: center;"
-                document.querySelector("#product-page-price").appendChild(div)
+                const successDiv = document.createElement("div");
+                document.querySelector("#product-page-price").after(successDiv);
+                successDiv.outerHTML = success;
             }
         }
     })();
 };
 
 checkButton();
-setInterval(checkButton, 5000);
