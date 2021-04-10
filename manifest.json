@@ -1,0 +1,32 @@
+{
+    "name": "Magic Cart",
+    "action": {},
+    "manifest_version": 3,
+    "version": "0.1",
+    "description": "add missing add to cart button",
+    "permissions": [],
+    "icons": {
+        "48": "icons/icon_48.png",
+        "128": "icons/icon_128.png"
+    },
+    "content_scripts": [
+        {
+            "js": [
+                "ldlc.js"
+            ],
+            "matches": [
+                "*://*.ldlc.com/*"
+            ],
+            "run_at": "document_end"
+        },
+        {
+            "js": [
+                "amd.js"
+            ],
+            "matches": [
+                "*://*.amd.com/*"
+            ],
+            "run_at": "document_end"
+        }
+    ]
+}
